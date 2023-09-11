@@ -19,7 +19,7 @@ import snare from "./assets/Snare.mp3"
 function App() {
   const [activeButton, setActiveButton] = useState('');
   const [displayText, setDisplayText] = useState('');
-  const [volume, setVolume] = useState(0.7);
+  const [volume, setVolume] = useState(0.3);
   const [powerOn, setPowerOn] = useState(true);
   const [whichBank, setWhichBank] = useState(false);
   const buttons = [['Q', 'W', 'E'], ['A', 'S', 'D'], ['Z', 'X', 'C']]
@@ -44,6 +44,24 @@ function App() {
     Z: punchyKick,
     X: sideStick,
     C: snare
+  }
+  const displayTags = {
+    [chord1]: 'Chord 1',
+    [chord2]: 'Chord 2',
+    [chord3]: 'Chord 3',
+    [clap]: 'Clap',
+    [closedHH]: 'Closed HH',
+    [heater1]: 'Heater 1',
+    [heater2]: 'Heater 2',
+    [heater3]: 'Heater 3',
+    [heater4]: 'Heater 4',
+    [kick]: 'Kick',
+    [kickNHat]: "Kick 'n Hat",
+    [openHH]: 'Open HH',
+    [punchyKick]: 'Punchy Kick',
+    [shaker]: 'Shaker',
+    [sideStick]: 'Side Stick',
+    [snare]: 'Snare'
   }
 
   useEffect(() => {
@@ -79,11 +97,7 @@ function App() {
     setActiveButton(button);
     const bank = whichBank ? soundsR : soundsL;
     if (bank[button]) {
-      setDisplayText(bank[button]
-        .replace(/\/src\/assets\/|\.mp3/g, "")
-        .replace(/\-n\-/, " n' ")
-        .replace(/\-/, ' ')
-        );
+      setDisplayText(displayTags[bank[button]]);
       play(bank[button]);
     } else if (button === '-') {
       handleVolumeDecrement();
